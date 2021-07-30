@@ -1,5 +1,5 @@
 {
-  "homepage": "http://tamirs2702.github.io/ppl-finder/",
+  "homepage": "http://tamirs2702.github.io/PplFinder/",
   "name": "ppl-finder",
   "version": "1.0.7",
   "bin": "./bin/cli.js",
