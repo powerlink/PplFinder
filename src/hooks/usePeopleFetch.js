@@ -10,8 +10,12 @@ export const usePeopleFetch = () => {
   }, []);
 
   async function fetchUsers() {
+    const country = "NL";
+    const pageNumber = 1;
     setIsLoading(true);
-    const response = await axios.get(`https://randomuser.me/api/?results=25&page=1`);
+    const response = await axios.get(
+      `https://randomuser.me/api/?results=25&page=${pageNumber}&nat=${country}`
+    );
     setIsLoading(false);
     setUsers(response.data.results);
   }

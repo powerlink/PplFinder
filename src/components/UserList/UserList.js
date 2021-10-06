@@ -24,6 +24,8 @@ const UserList = ({ users, isLoading }) => {
         <CheckBox value="AU" label="Australia" />
         <CheckBox value="CA" label="Canada" />
         <CheckBox value="DE" label="Germany" />
+        {/* Bonus of task 1 another country */}
+        <CheckBox value="NL" label="Netherlands" />
       </S.Filters>
       <S.List>
         {users.map((user, index) => {
