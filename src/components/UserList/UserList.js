@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Text from "components/Text";
 import Spinner from "components/Spinner";
-import CheckBox from "components/CheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
 
-import CountriesList from "../Countries/CountriesList";
+import CountriesList from "components/CountriesList";
 
-const UserList = ({ users, isLoading, countryHandle }) => {
+const UserList = ({ users, isLoading, handleSelectedCountries }) => {
   const [hoveredUserId, setHoveredUserId] = useState();
 
   const handleMouseEnter = (index) => {
@@ -22,7 +21,7 @@ const UserList = ({ users, isLoading, countryHandle }) => {
   return (
     <S.UserList>
       <S.Filters>
-        <CountriesList handle = {countryHandle}/>
+        <CountriesList handle={handleSelectedCountries} />
       </S.Filters>
       <S.List>
         {users.map((user, index) => {

@@ -3,14 +3,9 @@ import Text from "components/Text";
 import UserList from "components/UserList";
 import { usePeopleFetch } from "hooks";
 import * as S from "./style";
-import { useState } from "react";
 
 const Home = () => {
-  const { users, isLoading} = usePeopleFetch();
-
-  const handleCountrySelection = (selectedCountry) => {
-    console.log(selectedCountry);
-  };
+  const { users, isLoading, handleSelectedCountries } = usePeopleFetch();
 
   return (
     <S.Home>
@@ -23,7 +18,7 @@ const Home = () => {
         <UserList
           users={users}
           isLoading={isLoading}
-          countryHandle={handleCountrySelection}
+          handleSelectedCountries={handleSelectedCountries}
         />
       </S.Content>
     </S.Home>
