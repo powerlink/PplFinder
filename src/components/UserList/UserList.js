@@ -6,7 +6,9 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
 
-const UserList = ({ users, isLoading }) => {
+import CountriesList from "../Countries/CountriesList";
+
+const UserList = ({ users, isLoading, countryHandle }) => {
   const [hoveredUserId, setHoveredUserId] = useState();
 
   const handleMouseEnter = (index) => {
@@ -20,12 +22,7 @@ const UserList = ({ users, isLoading }) => {
   return (
     <S.UserList>
       <S.Filters>
-        <CheckBox value="BR" label="Brazil" />
-        <CheckBox value="AU" label="Australia" />
-        <CheckBox value="CA" label="Canada" />
-        <CheckBox value="DE" label="Germany" />
-        {/* Bonus of task 1 another country */}
-        <CheckBox value="NL" label="Netherlands" />
+        <CountriesList handle = {countryHandle}/>
       </S.Filters>
       <S.List>
         {users.map((user, index) => {

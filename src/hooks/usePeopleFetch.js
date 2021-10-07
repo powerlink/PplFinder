@@ -4,13 +4,12 @@ import axios from "axios";
 export const usePeopleFetch = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  
   useEffect(() => {
     fetchUsers();
   }, []);
 
   async function fetchUsers() {
-    const country = "NL";
     const pageNumber = 1;
     setIsLoading(true);
     const response = await axios.get(
