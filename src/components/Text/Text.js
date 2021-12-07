@@ -4,7 +4,7 @@ import * as S from "./style";
 
 const Text = ({ size = "14px", children, bold }) => {
   return (
-    <Typography>
+    <Typography component={'span'}>
       <S.Text size={size} bold={bold}>
         {children}
       </S.Text>
