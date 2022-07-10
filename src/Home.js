@@ -9,10 +9,8 @@ const Home = () => {
   const [pageNumber, setPageNumber]  = useState(1);
   const { users, isLoading } = usePeopleFetch(pageNumber );
 
-const  handleSetPage =() => {
+const handleSetPage =() => {
   setPageNumber(pageNumber+ 1)
-  console.log("Home")
-  
 }
 
 return (

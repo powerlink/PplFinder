@@ -5,10 +5,8 @@ import CheckBox from "components/CheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
-import InfiniteScroll from "react-infinite-scroll-component";
 
-
-const UserList = ({ users, isLoading, onChange, onScroll}) => {
+const UserList = ({ users, isLoading }) => {
 
   const [hoveredUserId, setHoveredUserId] = useState();
   const [checked, setChecked] = useState([]);
@@ -32,7 +30,7 @@ const UserList = ({ users, isLoading, onChange, onScroll}) => {
     localStorage.setItem("favorites",JSON.stringify({...favorites}))
 
     setFavoritesList(favorites);
-    onChange && onChange();
+
    };
 
   const handleMouseLeave = () => {
@@ -61,9 +59,6 @@ const UserList = ({ users, isLoading, onChange, onScroll}) => {
 }
 
    }
-   const handleScroll = () => {
-    console.log("userList")
-    onScroll && onScroll();   }
 
   return (
     <S.UserList  >
@@ -73,23 +68,10 @@ const UserList = ({ users, isLoading, onChange, onScroll}) => {
         <CheckBox onChange={handleCheck} value="CA" label="Canada" />
         <CheckBox onChange={handleCheck} value="DE" label="Germany"/>
         <CheckBox onChange={handleCheck} value="NO" label="Norway"/>
+
       </S.Filters>
-{!users.length && !isLoading ? ( <p style={{
-  height: 30,
-  border: "1px solid green",
-  margin: 6,
-  padding: 8
-}}>
-      <b>Favorites is empty</b>
-    </p>):(
-       <InfiniteScroll
-       dataLength={users.length}
-       next={handleScroll}
-       hasMore={true}
-       loader={<h4>...</h4>}
-     >
       <S.List>
-        { (checked.length ?usersFilter :users).map((user, index) => {
+        {(checked.length ? usersFilter : users)?.map((user, index) => {
           return (
             <S.User
               key={index}
@@ -122,13 +104,9 @@ const UserList = ({ users, isLoading, onChange, onScroll}) => {
             <Spinner color="primary" size="45px" thickness={6} variant="indeterminate" />
           </S.SpinnerWrapper>
         )}
-
       </S.List>
-      </InfiniteScroll>
-
-      )}
     </S.UserList>
-        );
+  );
 };
 
 
