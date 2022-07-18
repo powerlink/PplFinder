@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Text from "components/Text";
 import UserList from "components/UserList";
 import { usePeopleFetch } from "hooks";
 import * as S from "./style";
 
 const Home = () => {
-  const { users, isLoading } = usePeopleFetch();
+  // Added user checked countries to component's state and passed it to the usePeopleHook.
+  const [userCountries, setUserCountries] = useState([]);
+  const { users, isLoading } = usePeopleFetch(userCountries);
 
   return (
     <S.Home>
@@ -15,7 +17,12 @@ const Home = () => {
             PplFinder
           </Text>
         </S.Header>
-        <UserList users={users} isLoading={isLoading} />
+        <UserList
+          users={users}
+          isLoading={isLoading}
+          setUserCountries={setUserCountries}
+          userCountries={userCountries}
+        />
       </S.Content>
     </S.Home>
   );

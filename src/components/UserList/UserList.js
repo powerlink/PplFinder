@@ -6,7 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
 
-const UserList = ({ users, isLoading }) => {
+const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
   const [hoveredUserId, setHoveredUserId] = useState();
 
   const handleMouseEnter = (index) => {
@@ -17,13 +17,25 @@ const UserList = ({ users, isLoading }) => {
     setHoveredUserId();
   };
 
+  // Country checkboxes' onChange event handler.
+  const onCountryValueChange = (countryCode) => {
+    // Based on if the value is present in the userCountries array,
+    // add or remove changed checkbox's value.
+    if (!userCountries.includes(countryCode))
+      setUserCountries([...userCountries, countryCode]);
+    else
+      setUserCountries(
+        userCountries.filter((countryCodeEl) => countryCodeEl != countryCode)
+      );
+  };
+
   return (
     <S.UserList>
       <S.Filters>
-        <CheckBox value="BR" label="Brazil" />
-        <CheckBox value="AU" label="Australia" />
-        <CheckBox value="CA" label="Canada" />
-        <CheckBox value="DE" label="Germany" />
+        <CheckBox value="BR" label="Brazil" onChange={onCountryValueChange} />
+        <CheckBox value="AU" label="Australia" onChange={onCountryValueChange} />
+        <CheckBox value="CA" label="Canada" onChange={onCountryValueChange} />
+        <CheckBox value="DE" label="Germany" onChange={onCountryValueChange} />
       </S.Filters>
       <S.List>
         {users.map((user, index) => {
