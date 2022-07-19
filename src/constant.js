@@ -18,3 +18,8 @@ export const COLORS = {
   primary: "primary",
   secondary: "secondary",
 };
+
+export const PAGES = {
+  home: "HOME",
+  favorites: "FAVORITES",
+};
