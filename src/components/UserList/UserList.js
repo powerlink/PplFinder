@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Text from "components/Text";
 import Spinner from "components/Spinner";
 import CheckBox from "components/CheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { useFavoritePicker } from "hooks";
 import * as S from "./style";
 
 const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
   const [hoveredUserId, setHoveredUserId] = useState();
+  const { addOrRemoveFavorite, isUserFavorite } = useFavoritePicker();
 
   const handleMouseEnter = (index) => {
     setHoveredUserId(index);
@@ -58,8 +60,14 @@ const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
                   {user?.location.city} {user?.location.country}
                 </Text>
               </S.UserInfo>
-              <S.IconButtonWrapper isVisible={index === hoveredUserId}>
-                <IconButton>
+              <S.IconButtonWrapper
+                isVisible={index === hoveredUserId || isUserFavorite(user)}
+              >
+                <IconButton
+                  onClick={() => {
+                    addOrRemoveFavorite(user);
+                  }}
+                >
                   <FavoriteIcon color="error" />
                 </IconButton>
               </S.IconButtonWrapper>
