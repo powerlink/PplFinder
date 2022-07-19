@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import { useHistory } from "react-router";
 
-const NavBar = () => {
+const NavBar = ({ routes }) => {
   const [value, setValue] = useState(0);
+  let history = useHistory();
 
   const handleChange = (_e, newValue) => {
     setValue(newValue);
+    history.push(routes[newValue].path);
   };
 
   return (
@@ -19,8 +22,9 @@ const NavBar = () => {
         indicatorColor="primary"
         textColor="primary"
       >
-        <Tab label="Home" index={0} />
-        <Tab label="Favorites" index={1} />
+        {routes.map(({ label }, index) => {
+          return <Tab label={label} index={index} key={index} />;
+        })}
       </Tabs>
     </AppBar>
   );

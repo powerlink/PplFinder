@@ -1,16 +1,18 @@
 import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import { Home } from "pages";
 import { ThemeProvider } from "theme";
 import NavBar from "components/NavBar";
+import routes from "pages/routes";
 
 const AppRouter = () => {
   return (
     <ThemeProvider>
       <Router>
-        <NavBar />
+        <NavBar routes={routes} />
         <Switch>
-          <Route exact path="/" component={Home} />
+          {routes.map(({ path, component }, index) => {
+            return <Route exact path={path} component={component} key={index} />;
+          })}
         </Switch>
       </Router>
     </ThemeProvider>
