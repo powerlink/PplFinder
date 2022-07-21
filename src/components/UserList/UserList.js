@@ -4,12 +4,18 @@ import Spinner from "components/Spinner";
 import CheckBox from "components/CheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { useFavoritePicker } from "hooks";
 import * as S from "./style";
 
-const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
+const UserList = ({
+  users,
+  isLoading,
+  setUserCountries,
+  userCountries,
+  countries,
+  addOrRemoveFavorite,
+  isUserFavorite,
+}) => {
   const [hoveredUserId, setHoveredUserId] = useState();
-  const { addOrRemoveFavorite, isUserFavorite } = useFavoritePicker();
 
   const handleMouseEnter = (index) => {
     setHoveredUserId(index);
@@ -34,10 +40,16 @@ const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
   return (
     <S.UserList>
       <S.Filters>
-        <CheckBox value="BR" label="Brazil" onChange={onCountryValueChange} />
-        <CheckBox value="AU" label="Australia" onChange={onCountryValueChange} />
-        <CheckBox value="CA" label="Canada" onChange={onCountryValueChange} />
-        <CheckBox value="DE" label="Germany" onChange={onCountryValueChange} />
+        {countries?.map(({ country, nat }) => {
+          return (
+            <CheckBox
+              value={nat}
+              label={country}
+              onChange={onCountryValueChange}
+              key={nat}
+            />
+          );
+        })}
       </S.Filters>
       <S.List>
         {users.map((user, index) => {
