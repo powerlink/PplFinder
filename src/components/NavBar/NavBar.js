@@ -5,8 +5,12 @@ import Tab from "@material-ui/core/Tab";
 import { useHistory } from "react-router";
 
 const NavBar = ({ routes }) => {
-  const [value, setValue] = useState(0);
   let history = useHistory();
+  const [value, setValue] = useState(
+    routes.findIndex(({ path }) => {
+      return path == history.location.pathname;
+    })
+  );
 
   const handleChange = (_e, newValue) => {
     setValue(newValue);
