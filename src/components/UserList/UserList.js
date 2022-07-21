@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Text from "components/Text";
 import Spinner from "components/Spinner";
 import CheckBox from "components/CheckBox";
@@ -6,7 +6,15 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
 
-const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
+const UserList = ({
+  users,
+  isLoading,
+  setUserCountries,
+  userCountries,
+  countries,
+  addOrRemoveFavorite,
+  isUserFavorite,
+}) => {
   const [hoveredUserId, setHoveredUserId] = useState();
 
   const handleMouseEnter = (index) => {
@@ -32,10 +40,16 @@ const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
   return (
     <S.UserList>
       <S.Filters>
-        <CheckBox value="BR" label="Brazil" onChange={onCountryValueChange} />
-        <CheckBox value="AU" label="Australia" onChange={onCountryValueChange} />
-        <CheckBox value="CA" label="Canada" onChange={onCountryValueChange} />
-        <CheckBox value="DE" label="Germany" onChange={onCountryValueChange} />
+        {countries?.map(({ country, nat }) => {
+          return (
+            <CheckBox
+              value={nat}
+              label={country}
+              onChange={onCountryValueChange}
+              key={nat}
+            />
+          );
+        })}
       </S.Filters>
       <S.List>
         {users.map((user, index) => {
@@ -58,8 +72,14 @@ const UserList = ({ users, isLoading, setUserCountries, userCountries }) => {
                   {user?.location.city} {user?.location.country}
                 </Text>
               </S.UserInfo>
-              <S.IconButtonWrapper isVisible={index === hoveredUserId}>
-                <IconButton>
+              <S.IconButtonWrapper
+                isVisible={index === hoveredUserId || isUserFavorite(user)}
+              >
+                <IconButton
+                  onClick={() => {
+                    addOrRemoveFavorite(user);
+                  }}
+                >
                   <FavoriteIcon color="error" />
                 </IconButton>
               </S.IconButtonWrapper>
