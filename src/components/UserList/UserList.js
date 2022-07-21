@@ -14,6 +14,8 @@ const UserList = ({
   countries,
   addOrRemoveFavorite,
   isUserFavorite,
+  infiniteScroll,
+  lastUserRef,
 }) => {
   const [hoveredUserId, setHoveredUserId] = useState();
 
@@ -83,6 +85,7 @@ const UserList = ({
                   <FavoriteIcon color="error" />
                 </IconButton>
               </S.IconButtonWrapper>
+              {infiniteScroll && users.length === index + 1 && <div ref={lastUserRef} />}
             </S.User>
           );
         })}
