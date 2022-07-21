@@ -24,19 +24,12 @@ export const usePeopleFetch = (userCountries, page) => {
   async function fetchUsers(userCountries, page = 1) {
     setIsLoading(true);
 
-    // Fetching only desired users using the nationality field.
-    const fetchNewUsersURL = new URL(RANDOMUSER_API);
-    fetchNewUsersURL.search = new URLSearchParams({
-      results: 25,
-      page: page,
-      nat: userCountries,
-    });
-
-    // TODO: add cancel token
-    const newUsers = (await axios.get(fetchNewUsersURL.href)).data.results;
+    const fetchConfig = {
+      params: { results: 25, page: page, nat: userCountries.join() },
+    };
+    const newUsers = (await axios.get(RANDOMUSER_API, fetchConfig)).data.results;
 
     setIsLoading(false);
-
     setUsers((users) => {
       if (storeUsers) return [...users, ...newUsers];
       return newUsers;
