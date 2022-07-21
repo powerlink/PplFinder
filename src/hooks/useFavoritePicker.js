@@ -10,12 +10,12 @@ export const useFavoritePicker = () => {
   }, [favorites]);
 
   const addOrRemoveFavorite = (user) => {
-    if (favorites.includes(user)) removeFromFavorites(user);
+    if (isUserFavorite(user)) removeFromFavorites(user);
     else addToFavorites(user);
   };
 
   const removeFromFavorites = (userToRemove) => {
-    setFavorites(favorites.filter((user) => user != userToRemove));
+    setFavorites(favorites.filter((user) => !compareUsers(user, userToRemove)));
   };
 
   const addToFavorites = (userToAdd) => {
@@ -23,8 +23,15 @@ export const useFavoritePicker = () => {
   };
 
   const isUserFavorite = (user) => {
-    return favorites.includes(user);
+    for (let i = 0; i < favorites.length; i++) {
+      if (compareUsers(favorites[i], user)) return true;
+    }
+    return false;
   };
 
-  return { addOrRemoveFavorite, isUserFavorite };
+  const compareUsers = (userA, userB) => {
+    return JSON.stringify(userA) === JSON.stringify(userB);
+  };
+
+  return { addOrRemoveFavorite, isUserFavorite, favorites };
 };
