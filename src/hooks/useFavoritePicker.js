@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const useFavoritePicker = () => {
   const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem("favorites")) ?? []
+    () => JSON.parse(localStorage.getItem("favorites")) ?? []
   );
 
   useEffect(() => {
